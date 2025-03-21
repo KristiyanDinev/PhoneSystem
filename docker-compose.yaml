@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  db:
+    image: 'postgres'
+    volumes:
+      - 'data:/var/lib/postgresql/data'
+    ports:
+      - '5432:5432'
+    environment:
+      - 'POSTGRES_PORT_NUMBER=3000'
+      - 'POSTGRES_USER=AdminPostgresqlUser123'
+      - 'POSTGRES_PASSWORD=VTUYiuhoNonnio'
+
+volumes:
+  data:

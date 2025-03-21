@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: 'PhoneSystem'
+  datasource:
+    url: 'jdbc:postgresql://127.0.0.1:5432/postgres'
+    username: 'AdminPostgresqlUser123'
+    password: 'VTUYiuhoNonnio'
+    driver-class-name: 'org.postgresql.Driver'
