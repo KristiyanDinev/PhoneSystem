@@ -1,6 +1,23 @@
 spring:
+  application:
+    name: 'PhoneSystem'
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
   datasource:
     url: 'jdbc:postgresql://127.0.0.1:5432/postgres'
     username: 'AdminPostgresqlUser123'
     password: 'VTUYiuhoNonnio'
     driver-class-name: 'org.postgresql.Driver'
+    tomcat:
+      max-wait: 10000
+      max-active: 50
+      test-on-borrow: true
+
+encryption:
+  key: "weasf"
+  salt: "wesafasdf"
+

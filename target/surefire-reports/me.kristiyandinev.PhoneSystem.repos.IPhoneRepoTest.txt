@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------------
+Test set: me.kristiyandinev.PhoneSystem.repos.IPhoneRepoTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.192 s <<< FAILURE! -- in me.kristiyandinev.PhoneSystem.repos.IPhoneRepoTest
+me.kristiyandinev.PhoneSystem.repos.IPhoneRepoTest.testPhone -- Time elapsed: 0.159 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting Optional to contain a value but it was empty.
+	at me.kristiyandinev.PhoneSystem.repos.IPhoneRepoTest.testPhone(IPhoneRepoTest.java:33)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+

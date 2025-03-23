@@ -1,20 +1,30 @@
 package me.kristiyandinev.PhoneSystem.domain;
 
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "phones")
 public class Phone {
+    @Column(nullable = false)
     public String number;
-    public Long user_id;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
+    public User user;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     public Phone() {
         number = "";
-        user_id = null;
+        user = null;
         id = null;
     }
 
-    public Phone(String _number, Long _user_id, Long _id) {
-        number = _number;
-        user_id = _user_id;
-        id = _id;
+    public Phone(String number, User user, Long id) {
+        this.number = number;
+        this.user = user;
+        this.id = id;
     }
 }

@@ -1,6 +1,7 @@
-package me.kristiyandinev.PhoneSystem.database.config;
+package me.kristiyandinev.PhoneSystem.config;
 
 
+import me.kristiyandinev.PhoneSystem.utils.EncryptionUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;

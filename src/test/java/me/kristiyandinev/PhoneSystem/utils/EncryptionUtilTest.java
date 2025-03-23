@@ -1,27 +1,21 @@
 package me.kristiyandinev.PhoneSystem.utils;
 
-
-import me.kristiyandinev.PhoneSystem.PhoneSystemApplication;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
 public class EncryptionUtilTest {
 
 
-    @Mock
+    private String testText = "Hello";
+
+    @Autowired
     private EncryptionUtil encryptionUtil;
 
-    @Test
-    public void testEncryption() throws Exception{
-
-        PhoneSystemApplication.logger.info(encryptionUtil.encrypt("Hello"));
-    }
 
     @Test
-    public void testDecryption() throws Exception{
-        encryptionUtil.decrypt("");
+    public void testEncryptionAndDecryption() throws Exception {
+        encryptionUtil.decrypt(encryptionUtil.encrypt(testText));
     }
 }
