@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="me.kristiyandinev.PhoneSystem.utils.EncryptionUtilTest" time="0.029" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="me.kristiyandinev.PhoneSystem.repos.RepoTest" time="0.383" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="24"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -67,9 +67,13 @@
     <property name="java.class.version" value="68.0"/>
     <property name="LOGGED_APPLICATION_NAME" value="[PhoneSystem] "/>
   </properties>
-  <testcase name="testEncryptionAndDecryption" classname="me.kristiyandinev.PhoneSystem.utils.EncryptionUtilTest" time="0.011">
-    <system-out><![CDATA[2025-03-24T20:17:20.225+02:00  INFO 10616 --- [PhoneSystem] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [me.kristiyandinev.PhoneSystem.utils.EncryptionUtilTest]: EncryptionUtilTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2025-03-24T20:17:20.237+02:00  INFO 10616 --- [PhoneSystem] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration me.kristiyandinev.PhoneSystem.PhoneSystemApplication for test class me.kristiyandinev.PhoneSystem.utils.EncryptionUtilTest
+  <testcase name="testUserAndPhone" classname="me.kristiyandinev.PhoneSystem.repos.RepoTest" time="0.356">
+    <system-out><![CDATA[2025-03-24T20:17:19.840+02:00  INFO 10616 --- [PhoneSystem] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [me.kristiyandinev.PhoneSystem.repos.RepoTest]: RepoTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-24T20:17:19.856+02:00  INFO 10616 --- [PhoneSystem] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration me.kristiyandinev.PhoneSystem.PhoneSystemApplication for test class me.kristiyandinev.PhoneSystem.repos.RepoTest
+Hibernate: insert into users (created_at,email,name,password) values (?,?,?,?)
+Hibernate: insert into phones (number,user_id) values (?,?)
+Hibernate: delete from phones p1_0
+Hibernate: delete from users u1_0
 ]]></system-out>
   </testcase>
 </testsuite>

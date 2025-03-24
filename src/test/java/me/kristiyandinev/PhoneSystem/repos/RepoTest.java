@@ -8,31 +8,26 @@ import me.kristiyandinev.PhoneSystem.domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
 @Transactional
-public class IRepoTest extends TestSetup {
+public class RepoTest extends TestSetup {
+
 
     @Test
-    public void testUser() throws Exception {
-        System.out.println("testUser");
+    public void testUserAndPhone() throws Exception  {
         User user = new User(null, "John",
                 "ds@example.com",
                 encryptionUtil.hash256String("123"), null);
-        userRepo.save(user);
-    }
 
-    @Test
-    public void testPhone() {
-        System.out.println("Phone");
+        User savedUser = userRepo.save(user);
+        assertThat(savedUser).isNotNull();
 
-        User user = new User();
-        user.id = 1;
-        user.name = "John";
-        user.email = "ds@example.com";
-        user.password = "jzaICFTJOoUx3C1VrsgHWPHwQ6aeNmUBmUmji8TYj8Q=";
-        Phone phone = new Phone("+3591231241", user, null);
-        phoneRepo.save(phone);
+        Phone phone = new Phone("+3591231241", savedUser, null);
+        Phone savedPhone = phoneRepo.save(phone);
+
+        assertThat(savedPhone).isNotNull();
     }
 }
