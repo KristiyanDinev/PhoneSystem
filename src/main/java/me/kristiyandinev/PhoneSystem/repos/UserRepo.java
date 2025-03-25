@@ -172,11 +172,6 @@ public class UserRepo implements JpaRepository<User, Integer> {
 
     @Override
     public void deleteAll() {
-        // TODO
-        // select * from "users" where "id" = :id
-        //  setParameter("id", 1);
-        //  entityManager.createQuery("") uses JPQL
-
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
         CriteriaDelete<User> criteriaQuery = criteriaBuilder.createCriteriaDelete(User.class);
