@@ -1,15 +1,12 @@
-version: '2'
-
 services:
   db:
     image: 'postgres'
+    security_opt:
+      - 'no-new-privileges'
     volumes:
       - 'data:/var/lib/postgresql/data'
     ports:
       - '5432:5432'
-    environment:
-      - 'POSTGRES_USER=AdminPostgresqlUser123'
-      - 'POSTGRES_PASSWORD=VTUYiuhoNonnio'
 
 volumes:
   data:
