@@ -8,7 +8,7 @@ public class Phone {
     @Column(nullable = false)
     public String number;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     public User user;
 
