@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Title</title>
+</head>
+<body>
+    <span th:text="${user.name}"></span>
+
+    <div th:object="${user}">
+        <span th:text="*{email}"></span>
+        <span th:text="*{password}"></span>
+    </div>
+
+    <span th:if="${user.name == 'Hello'}">The name is Hello</span>
+
+    <ul th:each="phone:${phones}">
+        <li th:text="${phone.number}"></li>
+    </ul>
+</body>
+</html>

@@ -20,7 +20,20 @@ spring:
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
 
+  thymeleaf:
+    enabled: true
+
 encryption:
   key: "weasf"
   salt: "wesafasdf"
 
+page:
+  max_page_size: 20
+
+templates:
+  login: "login"
+  register: "register"
+  index: "index"
+
+variables:
+  list_of_phones: "phone"

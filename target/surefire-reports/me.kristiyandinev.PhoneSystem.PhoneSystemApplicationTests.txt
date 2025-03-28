@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: me.kristiyandinev.PhoneSystem.PhoneSystemApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.016 s -- in me.kristiyandinev.PhoneSystem.PhoneSystemApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.141 s -- in me.kristiyandinev.PhoneSystem.PhoneSystemApplicationTests
