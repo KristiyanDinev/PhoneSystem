@@ -1,0 +1,40 @@
+-------------------------------------------------------------------------------
+Test set: me.kristiyandinev.PhoneSystem.controllers.UserControllerTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 2.431 s <<< FAILURE! -- in me.kristiyandinev.PhoneSystem.controllers.UserControllerTest
+me.kristiyandinev.PhoneSystem.controllers.UserControllerTest.register -- Time elapsed: 1.545 s <<< ERROR!
+java.lang.IllegalArgumentException: 'uri' should start with a path or be a complete HTTP URI: nullregister
+	at org.springframework.util.Assert.isTrue(Assert.java:135)
+	at org.springframework.test.web.servlet.request.AbstractMockHttpServletRequestBuilder.initUri(AbstractMockHttpServletRequestBuilder.java:176)
+	at org.springframework.test.web.servlet.request.AbstractMockHttpServletRequestBuilder.uri(AbstractMockHttpServletRequestBuilder.java:165)
+	at org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder.uri(MockHttpServletRequestBuilder.java:79)
+	at org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post(MockMvcRequestBuilders.java:74)
+	at me.kristiyandinev.PhoneSystem.controllers.UserControllerTest.register(UserControllerTest.java:48)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+me.kristiyandinev.PhoneSystem.controllers.UserControllerTest.loads -- Time elapsed: 0.007 s <<< ERROR!
+java.lang.IllegalArgumentException: 'uri' must not be null
+	at org.springframework.util.Assert.notNull(Assert.java:181)
+	at org.springframework.test.web.servlet.request.AbstractMockHttpServletRequestBuilder.initUri(AbstractMockHttpServletRequestBuilder.java:175)
+	at org.springframework.test.web.servlet.request.AbstractMockHttpServletRequestBuilder.uri(AbstractMockHttpServletRequestBuilder.java:165)
+	at org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder.uri(MockHttpServletRequestBuilder.java:79)
+	at org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get(MockMvcRequestBuilders.java:56)
+	at me.kristiyandinev.PhoneSystem.controllers.UserControllerTest.loads(UserControllerTest.java:39)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+me.kristiyandinev.PhoneSystem.controllers.UserControllerTest.login -- Time elapsed: 0.004 s <<< ERROR!
+java.lang.IllegalArgumentException: 'uri' should start with a path or be a complete HTTP URI: nulllogin
+	at org.springframework.util.Assert.isTrue(Assert.java:135)
+	at org.springframework.test.web.servlet.request.AbstractMockHttpServletRequestBuilder.initUri(AbstractMockHttpServletRequestBuilder.java:176)
+	at org.springframework.test.web.servlet.request.AbstractMockHttpServletRequestBuilder.uri(AbstractMockHttpServletRequestBuilder.java:165)
+	at org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder.uri(MockHttpServletRequestBuilder.java:79)
+	at org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post(MockMvcRequestBuilders.java:74)
+	at me.kristiyandinev.PhoneSystem.controllers.UserControllerTest.login(UserControllerTest.java:60)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+

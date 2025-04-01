@@ -62,7 +62,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(Model model, HttpSession session, @RequestBody User user) {
+    public String login(HttpSession session, @RequestBody User user) {
         Optional<User> optionalUser = userService.login(user);
         if (optionalUser.isEmpty()) {
             return loginTemplate;
@@ -71,5 +71,27 @@ public class UserController {
         User userDb = optionalUser.get();
         userService.setUserIdToSession(session, userDb.id);
         return "redirect:"+indexTemplate;
+    }
+
+    @PostMapping("/register")
+    public String register(HttpSession session, @RequestBody User user) {
+        Optional<User> optionalUser = userService.register(user);
+        if (optionalUser.isEmpty()) {
+            return loginTemplate;
+        }
+
+        User userDb = optionalUser.get();
+        userService.setUserIdToSession(session, userDb.id);
+        return "redirect:"+indexTemplate;
+    }
+
+    @GetMapping("/login")
+    public String loginHTML() {
+        return loginTemplate;
+    }
+
+    @GetMapping("/register")
+    public String registerHTML() {
+        return registerTemplate;
     }
 }

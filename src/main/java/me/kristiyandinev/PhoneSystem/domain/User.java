@@ -1,5 +1,6 @@
 package me.kristiyandinev.PhoneSystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     public Integer id;
 
     @Column(nullable = false)
@@ -24,6 +26,7 @@ public class User {
     @Column(nullable = false)
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonIgnore
     public LocalDateTime created_at;
 
     public User() {

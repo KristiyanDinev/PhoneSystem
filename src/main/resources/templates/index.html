@@ -16,13 +16,18 @@
 </div>
 
 <div>
-    <h3>Phones</h3>
+    <div>
+        <h3>Phones</h3>
+        <a href="/phone">+</a>
+    </div>
 
-    <p th:text="${#lists.size(phones)}"></p>
+    <div>
+        <p th:text="Phones: ${#lists.size(phones)}"></p>
 
-    <ol th:each="phone:${phones}">
-        <li th:text="${phone.number}"></li>
-    </ol>
+        <ol th:each="phone:${phones}">
+            <li th:text="${phone.number}"></li>
+        </ol>
+    </div>
 </div>
 </body>
 </html>
