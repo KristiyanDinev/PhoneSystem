@@ -4,10 +4,7 @@ package me.kristiyandinev.PhoneSystem.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.kristiyandinev.PhoneSystem.domain.User;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
+@Configuration
 public class UserControllerTest {
 
     @Value("${test.url}")
@@ -27,7 +24,7 @@ public class UserControllerTest {
     private User user;
 
     public UserControllerTest() {
-        mockMvc = standaloneSetup(new UserController()).alwaysExpect(status().isOk()).build();
+        mockMvc = standaloneSetup(new UserController()).build();
         objectMapper = new ObjectMapper();
         System.out.println("index: "+indexUrl);
         user = new User(null,

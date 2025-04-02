@@ -25,6 +25,14 @@ encryption:
   key: "weasf"
   salt: "wesafasdf"
 
+templates:
+  addphone: "addPhone"
+  login: "login"
+  index: "index"
+  register: "register"
 
-test:
-  url: "http://127.0.0.1:8080/"
+page:
+  max_page_size: 20
+
+variables:
+  list_of_phones: "phones"
