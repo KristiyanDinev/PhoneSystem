@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "phones")
 public class Phone {
+
     @Column(nullable = false)
     public String number;
 

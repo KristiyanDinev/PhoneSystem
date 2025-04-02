@@ -37,5 +37,3 @@ page:
 variables:
   list_of_phones: "phones"
 
-test:
-  url: "http://127.0.0.1:8080/"

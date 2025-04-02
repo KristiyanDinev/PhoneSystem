@@ -8,17 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Optional;
 
 
-@Controller
+@RestController
 @EnableWebMvc
 public class UserController {
 
@@ -42,23 +40,30 @@ public class UserController {
 
 
     @GetMapping("/")
-    public String index(Model model, Pageable pageable, HttpSession session) {
+    public ModelAndView index(HttpSession session, Pageable pageable) {
+        //Pageable pageable = PageRequest.of(size, page, Sort.by(sort));
+
+        ModelAndView modelAndView = new ModelAndView();
         if (pageable.getPageSize() >= maxPageSize) {
-            return indexTemplate;
+            modelAndView.setViewName(loginTemplate);
+            return modelAndView;
         }
 
         Optional<User> optionalUser = userService.findById(
                                 userService.getUserIdFromSession(session));
 
         if (optionalUser.isEmpty()) {
-            return loginTemplate;
+            modelAndView.setViewName(loginTemplate);
+            return modelAndView;
         }
 
         // user is logged in and wants to see his phones
         User user = optionalUser.get();
         Page<Phone> phones = userService.findPhonesByUser(user, pageable);
-        model.addAttribute(list_of_phones, phones.getContent());
-        return indexTemplate;
+
+        modelAndView.addObject(list_of_phones, phones.getContent());
+        modelAndView.setViewName(indexTemplate);
+        return modelAndView;
     }
 
     @PostMapping("/login")
@@ -86,12 +91,16 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String loginHTML() {
-        return loginTemplate;
+    public ModelAndView loginHTML() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(loginTemplate);
+        return modelAndView;
     }
 
     @GetMapping("/register")
-    public String registerHTML() {
-        return registerTemplate;
+    public ModelAndView registerHTML() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(registerTemplate);
+        return modelAndView;
     }
 }

@@ -1,5 +1,6 @@
 package me.kristiyandinev.PhoneSystem.services.impl;
 
+import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpSession;
 import me.kristiyandinev.PhoneSystem.domain.Phone;
 import me.kristiyandinev.PhoneSystem.domain.User;
@@ -45,8 +46,13 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    @Nullable
     public Integer getUserIdFromSession(HttpSession session) {
-        return Integer.valueOf(String.valueOf(session.getAttribute(session_user_id)));
+        try {
+            return Integer.parseInt(String.valueOf(session.getAttribute(session_user_id)));
+        } catch (Exception _) {
+            return null;
+        }
     }
 
     @Override
@@ -56,7 +62,7 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    public Optional<User> findById(Integer id) {
+    public Optional<User> findById(@Nullable Integer id) {
         if (id == null) {
             return Optional.empty();
         }
