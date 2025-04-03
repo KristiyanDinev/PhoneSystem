@@ -1,19 +1,20 @@
 package me.kristiyandinev.PhoneSystem.services;
 
 import jakarta.servlet.http.HttpSession;
-import me.kristiyandinev.PhoneSystem.domain.Phone;
-import me.kristiyandinev.PhoneSystem.domain.User;
+import me.kristiyandinev.PhoneSystem.entities.PhoneEntity;
+import me.kristiyandinev.PhoneSystem.entities.UserEntity;
+import me.kristiyandinev.PhoneSystem.models.LoginUserModel;
+import me.kristiyandinev.PhoneSystem.models.RegisterUserModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface IUserService {
     Integer getUserIdFromSession(HttpSession session);
     void setUserIdToSession(HttpSession session, int id);
-    Optional<User> findById(Integer id);
-    Page<Phone> findPhonesByUser(User user, Pageable pageable);
-    Optional<User> login(User user);
-    Optional<User> register(User user);
+    Optional<UserEntity> findById(Integer id);
+    Page<PhoneEntity> findPhonesByUser(UserEntity userEntity, Pageable pageable);
+    Optional<UserEntity> login(LoginUserModel userEntity);
+    Optional<UserEntity> register(RegisterUserModel userEntity);
 }

@@ -1,33 +1,33 @@
-package me.kristiyandinev.PhoneSystem.domain;
+package me.kristiyandinev.PhoneSystem.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "phones")
-public class Phone {
+public class PhoneEntity {
 
     @Column(nullable = false)
     public String number;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
-    public User user;
+    public UserEntity userEntity;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     public Long id;
 
-    public Phone() {
+    public PhoneEntity() {
         number = "";
-        user = null;
+        userEntity = null;
         id = null;
     }
 
-    public Phone(String number, User user, Long id) {
+    public PhoneEntity(String number, UserEntity userEntity, Long id) {
         this.number = number;
-        this.user = user;
+        this.userEntity = userEntity;
         this.id = id;
     }
 }

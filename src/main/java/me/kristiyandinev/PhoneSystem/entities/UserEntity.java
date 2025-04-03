@@ -1,18 +1,17 @@
-package me.kristiyandinev.PhoneSystem.domain;
+package me.kristiyandinev.PhoneSystem.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
+import me.kristiyandinev.PhoneSystem.models.LoginUserModel;
+import me.kristiyandinev.PhoneSystem.models.RegisterUserModel;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     public Integer id;
 
     @Column(nullable = false)
@@ -27,10 +26,9 @@ public class User {
     @Column(nullable = false)
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @JsonIgnore
     public LocalDateTime created_at;
 
-    public User() {
+    public UserEntity() {
         id = null;
         name = "";
         email = "";
@@ -38,11 +36,27 @@ public class User {
         created_at = null;
     }
 
-    public User(Integer id, String name, String email, String password, LocalDateTime datetime) {
+    public UserEntity(Integer id, String name, String email, String password, LocalDateTime datetime) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.created_at = datetime;
+    }
+
+    public UserEntity(RegisterUserModel registerUserModel) {
+        id = null;
+        name = registerUserModel.name;
+        email = registerUserModel.email;
+        password = registerUserModel.password;
+        created_at = null;
+    }
+
+    public UserEntity(LoginUserModel loginUserModel) {
+        id = null;
+        name = "";
+        email = loginUserModel.email;
+        password = loginUserModel.password;
+        created_at = null;
     }
 }

@@ -1,36 +1,38 @@
 package me.kristiyandinev.PhoneSystem.repos;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaDelete;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
 import jakarta.transaction.Transactional;
-import me.kristiyandinev.PhoneSystem.domain.User;
+import me.kristiyandinev.PhoneSystem.entities.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
 @Repository
 @Transactional
-public class UserRepo implements JpaRepository<User, Integer> {
+public class UserRepo implements JpaRepository<UserEntity, Integer> {
 
     private EntityManager entityManager;
 
-    private SimpleJpaRepository<User, Integer> simpleJpaRepository;
+    private SimpleJpaRepository<UserEntity, Integer> simpleJpaRepository;
 
     @Autowired
     public UserRepo(EntityManager entityManager) {
         this.entityManager = entityManager;
-        simpleJpaRepository = new SimpleJpaRepository<>(User.class, entityManager);
+        simpleJpaRepository = new SimpleJpaRepository<>(UserEntity.class, entityManager);
     }
 
     @Override
@@ -39,17 +41,17 @@ public class UserRepo implements JpaRepository<User, Integer> {
     }
 
     @Override
-    public <S extends User> S saveAndFlush(S entity) {
+    public <S extends UserEntity> S saveAndFlush(S entity) {
         return simpleJpaRepository.saveAndFlush(entity);
     }
 
     @Override
-    public <S extends User> List<S> saveAllAndFlush(Iterable<S> entities) {
+    public <S extends UserEntity> List<S> saveAllAndFlush(Iterable<S> entities) {
         return simpleJpaRepository.saveAllAndFlush(entities);
     }
 
     @Override
-    public void deleteAllInBatch(Iterable<User> entities) {
+    public void deleteAllInBatch(Iterable<UserEntity> entities) {
         simpleJpaRepository.deleteAllInBatch(entities);
     }
 
@@ -64,68 +66,68 @@ public class UserRepo implements JpaRepository<User, Integer> {
     }
 
     @Deprecated
-    public User getOne(Integer aInt) {
+    public UserEntity getOne(Integer aInt) {
         return simpleJpaRepository.getOne(aInt);
     }
 
     @Override
     @Deprecated
-    public User getById(Integer aInt) {
+    public UserEntity getById(Integer aInt) {
         return simpleJpaRepository.getById(aInt);
     }
 
     @Override
-    public User getReferenceById(Integer aInt) {
+    public UserEntity getReferenceById(Integer aInt) {
         return simpleJpaRepository.getReferenceById(aInt);
     }
 
     @Override
-    public <S extends User> Optional<S> findOne(Example<S> example) {
+    public <S extends UserEntity> Optional<S> findOne(Example<S> example) {
         return simpleJpaRepository.findOne(example);
     }
 
     @Override
-    public <S extends User> List<S> findAll(Example<S> example) {
+    public <S extends UserEntity> List<S> findAll(Example<S> example) {
         return simpleJpaRepository.findAll(example);
     }
 
     @Override
-    public <S extends User> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends UserEntity> List<S> findAll(Example<S> example, Sort sort) {
         return simpleJpaRepository.findAll(example, sort);
     }
 
     @Override
-    public <S extends User> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends UserEntity> Page<S> findAll(Example<S> example, Pageable pageable) {
         return simpleJpaRepository.findAll(example, pageable);
     }
 
     @Override
-    public <S extends User> long count(Example<S> example) {
+    public <S extends UserEntity> long count(Example<S> example) {
         return simpleJpaRepository.count(example);
     }
 
     @Override
-    public <S extends User> boolean exists(Example<S> example) {
+    public <S extends UserEntity> boolean exists(Example<S> example) {
         return simpleJpaRepository.exists(example);
     }
 
     @Override
-    public <S extends User, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends UserEntity, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return simpleJpaRepository.findBy(example, queryFunction);
     }
 
     @Override
-    public <S extends User> S save(S entity) {
+    public <S extends UserEntity> S save(S entity) {
         return simpleJpaRepository.save(entity);
     }
 
     @Override
-    public <S extends User> List<S> saveAll(Iterable<S> entities) {
+    public <S extends UserEntity> List<S> saveAll(Iterable<S> entities) {
         return simpleJpaRepository.saveAll(entities);
     }
 
     @Override
-    public Optional<User> findById(Integer aInt) {
+    public Optional<UserEntity> findById(Integer aInt) {
         return simpleJpaRepository.findById(aInt);
     }
 
@@ -135,12 +137,12 @@ public class UserRepo implements JpaRepository<User, Integer> {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<UserEntity> findAll() {
         return simpleJpaRepository.findAll();
     }
 
     @Override
-    public List<User> findAllById(Iterable<Integer> ints) {
+    public List<UserEntity> findAllById(Iterable<Integer> ints) {
         return simpleJpaRepository.findAllById(ints);
     }
 
@@ -155,7 +157,7 @@ public class UserRepo implements JpaRepository<User, Integer> {
     }
 
     @Override
-    public void delete(User entity) {
+    public void delete(UserEntity entity) {
         simpleJpaRepository.delete(entity);
     }
 
@@ -165,7 +167,7 @@ public class UserRepo implements JpaRepository<User, Integer> {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends User> entities) {
+    public void deleteAll(Iterable<? extends UserEntity> entities) {
         simpleJpaRepository.deleteAll(entities);
     }
 
@@ -173,19 +175,36 @@ public class UserRepo implements JpaRepository<User, Integer> {
     public void deleteAll() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
-        CriteriaDelete<User> criteriaQuery = criteriaBuilder.createCriteriaDelete(User.class);
-        criteriaQuery.from(User.class);
+        CriteriaDelete<UserEntity> criteriaQuery = criteriaBuilder.createCriteriaDelete(UserEntity.class);
+        criteriaQuery.from(UserEntity.class);
 
         entityManager.createQuery(criteriaQuery).executeUpdate();
     }
 
     @Override
-    public List<User> findAll(Sort sort) {
+    public List<UserEntity> findAll(Sort sort) {
         return simpleJpaRepository.findAll(sort);
     }
 
     @Override
-    public Page<User> findAll(Pageable pageable) {
+    public Page<UserEntity> findAll(Pageable pageable) {
         return simpleJpaRepository.findAll(pageable);
+    }
+
+    public Optional<UserEntity> login(UserEntity userEntity) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<UserEntity> criteriaQuery = criteriaBuilder.createQuery(UserEntity.class);
+        Root<UserEntity> root = criteriaQuery.from(UserEntity.class);
+
+        criteriaQuery = criteriaQuery.where(
+                criteriaBuilder.and(
+                        criteriaBuilder.equal(root.get("email"), userEntity.email),
+                        criteriaBuilder.equal(root.get("password"), userEntity.password)
+                )
+        );
+
+        List<UserEntity> userEntities = entityManager.createQuery(criteriaQuery).getResultList();
+        return userEntities.isEmpty() ? Optional.empty() : Optional.of(userEntities.getFirst());
     }
 }

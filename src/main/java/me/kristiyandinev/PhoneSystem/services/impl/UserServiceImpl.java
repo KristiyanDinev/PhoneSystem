@@ -1,9 +1,14 @@
 package me.kristiyandinev.PhoneSystem.services.impl;
 
 import jakarta.annotation.Nullable;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import jakarta.servlet.http.HttpSession;
-import me.kristiyandinev.PhoneSystem.domain.Phone;
-import me.kristiyandinev.PhoneSystem.domain.User;
+import me.kristiyandinev.PhoneSystem.entities.PhoneEntity;
+import me.kristiyandinev.PhoneSystem.entities.UserEntity;
+import me.kristiyandinev.PhoneSystem.models.LoginUserModel;
+import me.kristiyandinev.PhoneSystem.models.RegisterUserModel;
 import me.kristiyandinev.PhoneSystem.repos.PhoneRepo;
 import me.kristiyandinev.PhoneSystem.repos.UserRepo;
 import me.kristiyandinev.PhoneSystem.services.IUserService;
@@ -15,6 +20,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.*;
@@ -35,10 +42,10 @@ public class UserServiceImpl implements IUserService {
     private String session_user_id = "user_id";
 
 
-    private Optional<User> encryptUserPassword(User user) {
+    private Optional<UserEntity> hashUserPassword(UserEntity userEntity) {
         try {
-            user.password = encryptionUtil.encrypt(user.password);
-            return Optional.of(user);
+            userEntity.password = encryptionUtil.hash256String(userEntity.password);
+            return Optional.of(userEntity);
 
         } catch (Exception _) {
             return Optional.empty();
@@ -62,7 +69,7 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    public Optional<User> findById(@Nullable Integer id) {
+    public Optional<UserEntity> findById(@Nullable Integer id) {
         if (id == null) {
             return Optional.empty();
         }
@@ -70,28 +77,25 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public Page<Phone> findPhonesByUser(User user, Pageable pageable) {
-        Phone phone = new Phone();
-        phone.user = user;
-        return phoneRepo.findAll(Example.of(phone), pageable);
+    public Page<PhoneEntity> findPhonesByUser(UserEntity userEntity, Pageable pageable) {
+        PhoneEntity phoneEntity = new PhoneEntity();
+        phoneEntity.userEntity = userEntity;
+        return phoneRepo.findAll(Example.of(phoneEntity), pageable);
     }
 
     @Override
-    public Optional<User> login(User user) {
-        Optional<User> optionalUser = encryptUserPassword(user);
+    public Optional<UserEntity> login(LoginUserModel userEntity) {
+        Optional<UserEntity> optionalUser = hashUserPassword(new UserEntity(userEntity));
         if (optionalUser.isEmpty()) {
             return optionalUser;
         }
-
-        ExampleMatcher matcher = ExampleMatcher.matching()
-                .withMatcher("email", exact())
-                .withMatcher("password", exact());
-
-        return userRepo.findOne(Example.of(optionalUser.get(), matcher));
+        return userRepo.login(optionalUser.get());
     }
 
     @Override
-    public Optional<User> register(User user) {
-        return encryptUserPassword(user).map(value -> userRepo.save(value));
+    public Optional<UserEntity> register(RegisterUserModel registerUserModel) {
+        return hashUserPassword(
+                new UserEntity(registerUserModel))
+                .map(value -> userRepo.save(value));
     }
 }

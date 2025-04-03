@@ -4,7 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.transaction.Transactional;
-import me.kristiyandinev.PhoneSystem.domain.Phone;
+import me.kristiyandinev.PhoneSystem.entities.PhoneEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -21,16 +21,16 @@ import java.util.function.Function;
 
 @Repository
 @Transactional
-public class PhoneRepo implements JpaRepository<Phone, Long> {
+public class PhoneRepo implements JpaRepository<PhoneEntity, Long> {
 
         private EntityManager entityManager;
 
-        private SimpleJpaRepository<Phone, Long> simpleJpaRepository;
+        private SimpleJpaRepository<PhoneEntity, Long> simpleJpaRepository;
 
         @Autowired
         public PhoneRepo(EntityManager entityManager) {
             this.entityManager = entityManager;
-            simpleJpaRepository = new SimpleJpaRepository<>(Phone.class, entityManager);
+            simpleJpaRepository = new SimpleJpaRepository<>(PhoneEntity.class, entityManager);
         }
 
         @Override
@@ -39,17 +39,17 @@ public class PhoneRepo implements JpaRepository<Phone, Long> {
         }
 
         @Override
-        public <S extends Phone> S saveAndFlush(S entity) {
+        public <S extends PhoneEntity> S saveAndFlush(S entity) {
             return simpleJpaRepository.saveAndFlush(entity);
         }
 
         @Override
-        public <S extends Phone> List<S> saveAllAndFlush(Iterable<S> entities) {
+        public <S extends PhoneEntity> List<S> saveAllAndFlush(Iterable<S> entities) {
             return simpleJpaRepository.saveAllAndFlush(entities);
         }
 
         @Override
-        public void deleteAllInBatch(Iterable<Phone> entities) {
+        public void deleteAllInBatch(Iterable<PhoneEntity> entities) {
             simpleJpaRepository.deleteAllInBatch(entities);
         }
 
@@ -64,68 +64,68 @@ public class PhoneRepo implements JpaRepository<Phone, Long> {
         }
 
         @Deprecated
-        public Phone getOne(Long aInt) {
+        public PhoneEntity getOne(Long aInt) {
             return simpleJpaRepository.getOne(aInt);
         }
 
         @Override
         @Deprecated
-        public Phone getById(Long aInt) {
+        public PhoneEntity getById(Long aInt) {
             return simpleJpaRepository.getById(aInt);
         }
 
         @Override
-        public Phone getReferenceById(Long aInt) {
+        public PhoneEntity getReferenceById(Long aInt) {
             return simpleJpaRepository.getReferenceById(aInt);
         }
 
         @Override
-        public <S extends Phone> Optional<S> findOne(Example<S> example) {
+        public <S extends PhoneEntity> Optional<S> findOne(Example<S> example) {
             return simpleJpaRepository.findOne(example);
         }
 
         @Override
-        public <S extends Phone> List<S> findAll(Example<S> example) {
+        public <S extends PhoneEntity> List<S> findAll(Example<S> example) {
             return simpleJpaRepository.findAll(example);
         }
 
         @Override
-        public <S extends Phone> List<S> findAll(Example<S> example, Sort sort) {
+        public <S extends PhoneEntity> List<S> findAll(Example<S> example, Sort sort) {
             return simpleJpaRepository.findAll(example, sort);
         }
 
         @Override
-        public <S extends Phone> Page<S> findAll(Example<S> example, Pageable pageable) {
+        public <S extends PhoneEntity> Page<S> findAll(Example<S> example, Pageable pageable) {
             return simpleJpaRepository.findAll(example, pageable);
         }
 
         @Override
-        public <S extends Phone> long count(Example<S> example) {
+        public <S extends PhoneEntity> long count(Example<S> example) {
             return simpleJpaRepository.count(example);
         }
 
         @Override
-        public <S extends Phone> boolean exists(Example<S> example) {
+        public <S extends PhoneEntity> boolean exists(Example<S> example) {
             return simpleJpaRepository.exists(example);
         }
 
         @Override
-        public <S extends Phone, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+        public <S extends PhoneEntity, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
             return simpleJpaRepository.findBy(example, queryFunction);
         }
 
         @Override
-        public <S extends Phone> S save(S entity) {
+        public <S extends PhoneEntity> S save(S entity) {
             return simpleJpaRepository.save(entity);
         }
 
         @Override
-        public <S extends Phone> List<S> saveAll(Iterable<S> entities) {
+        public <S extends PhoneEntity> List<S> saveAll(Iterable<S> entities) {
             return simpleJpaRepository.saveAll(entities);
         }
 
         @Override
-        public Optional<Phone> findById(Long aInt) {
+        public Optional<PhoneEntity> findById(Long aInt) {
             return simpleJpaRepository.findById(aInt);
         }
 
@@ -135,12 +135,12 @@ public class PhoneRepo implements JpaRepository<Phone, Long> {
         }
 
         @Override
-        public List<Phone> findAll() {
+        public List<PhoneEntity> findAll() {
             return simpleJpaRepository.findAll();
         }
 
         @Override
-        public List<Phone> findAllById(Iterable<Long> ints) {
+        public List<PhoneEntity> findAllById(Iterable<Long> ints) {
             return simpleJpaRepository.findAllById(ints);
         }
 
@@ -155,7 +155,7 @@ public class PhoneRepo implements JpaRepository<Phone, Long> {
         }
 
         @Override
-        public void delete(Phone entity) {
+        public void delete(PhoneEntity entity) {
             simpleJpaRepository.delete(entity);
         }
 
@@ -165,7 +165,7 @@ public class PhoneRepo implements JpaRepository<Phone, Long> {
         }
 
         @Override
-        public void deleteAll(Iterable<? extends Phone> entities) {
+        public void deleteAll(Iterable<? extends PhoneEntity> entities) {
             simpleJpaRepository.deleteAll(entities);
         }
 
@@ -173,19 +173,19 @@ public class PhoneRepo implements JpaRepository<Phone, Long> {
         public void deleteAll() {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
-            CriteriaDelete<Phone> criteriaQuery = criteriaBuilder.createCriteriaDelete(Phone.class);
-            criteriaQuery.from(Phone.class);
+            CriteriaDelete<PhoneEntity> criteriaQuery = criteriaBuilder.createCriteriaDelete(PhoneEntity.class);
+            criteriaQuery.from(PhoneEntity.class);
 
             entityManager.createQuery(criteriaQuery).executeUpdate();
         }
 
         @Override
-        public List<Phone> findAll(Sort sort) {
+        public List<PhoneEntity> findAll(Sort sort) {
             return simpleJpaRepository.findAll(sort);
         }
 
         @Override
-        public Page<Phone> findAll(Pageable pageable) {
+        public Page<PhoneEntity> findAll(Pageable pageable) {
             return simpleJpaRepository.findAll(pageable);
         }
 

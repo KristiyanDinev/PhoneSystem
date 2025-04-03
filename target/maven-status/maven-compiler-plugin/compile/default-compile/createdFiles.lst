@@ -1,10 +1,12 @@
 me\kristiyandinev\PhoneSystem\PhoneSystemApplication.class
 me\kristiyandinev\PhoneSystem\services\impl\UserServiceImpl.class
 me\kristiyandinev\PhoneSystem\utils\EncryptionUtil.class
-me\kristiyandinev\PhoneSystem\domain\User.class
+me\kristiyandinev\PhoneSystem\entities\PhoneEntity.class
 me\kristiyandinev\PhoneSystem\controllers\UserController.class
-me\kristiyandinev\PhoneSystem\domain\Phone.class
+me\kristiyandinev\PhoneSystem\entities\UserEntity.class
 me\kristiyandinev\PhoneSystem\repos\PhoneRepo.class
 me\kristiyandinev\PhoneSystem\controllers\PhoneController.class
+me\kristiyandinev\PhoneSystem\models\RegisterUserModel.class
+me\kristiyandinev\PhoneSystem\models\LoginUserModel.class
 me\kristiyandinev\PhoneSystem\repos\UserRepo.class
 me\kristiyandinev\PhoneSystem\services\IUserService.class

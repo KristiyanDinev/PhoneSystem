@@ -1,8 +1,8 @@
 package me.kristiyandinev.PhoneSystem.controllers;
 
 import jakarta.servlet.http.HttpSession;
-import me.kristiyandinev.PhoneSystem.domain.Phone;
-import me.kristiyandinev.PhoneSystem.domain.User;
+import me.kristiyandinev.PhoneSystem.entities.PhoneEntity;
+import me.kristiyandinev.PhoneSystem.entities.UserEntity;
 import me.kristiyandinev.PhoneSystem.repos.PhoneRepo;
 import me.kristiyandinev.PhoneSystem.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +45,9 @@ public class PhoneController {
             return loginTemplate;
         }
 
-        User user = new User();
-        user.id = id;
-        phoneRepo.save(new Phone(phone, user, null));
+        UserEntity userEntity = new UserEntity();
+        userEntity.id = id;
+        phoneRepo.save(new PhoneEntity(phone, userEntity, null));
         return indexTemplate;
     }
 

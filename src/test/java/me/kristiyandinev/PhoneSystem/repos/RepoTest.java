@@ -3,11 +3,9 @@ package me.kristiyandinev.PhoneSystem.repos;
 
 import jakarta.transaction.Transactional;
 import me.kristiyandinev.PhoneSystem.TestSetup;
-import me.kristiyandinev.PhoneSystem.domain.Phone;
-import me.kristiyandinev.PhoneSystem.domain.User;
+import me.kristiyandinev.PhoneSystem.entities.PhoneEntity;
+import me.kristiyandinev.PhoneSystem.entities.UserEntity;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
@@ -20,16 +18,16 @@ public class RepoTest extends TestSetup {
 
     @Test
     public void testUserAndPhone() throws Exception  {
-        User user = new User(null, "John",
+        UserEntity userEntity = new UserEntity(null, "John",
                 "ds@example.com",
                 encryptionUtil.hash256String("123"), null);
 
-        User savedUser = userRepo.save(user);
-        assertThat(savedUser).isNotNull();
+        UserEntity savedUserEntity = userRepo.save(userEntity);
+        assertThat(savedUserEntity).isNotNull();
 
-        Phone phone = new Phone("+3591231241", savedUser, null);
-        Phone savedPhone = phoneRepo.save(phone);
+        PhoneEntity phoneEntity = new PhoneEntity("+3591231241", savedUserEntity, null);
+        PhoneEntity savedPhoneEntity = phoneRepo.save(phoneEntity);
 
-        assertThat(savedPhone).isNotNull();
+        assertThat(savedPhoneEntity).isNotNull();
     }
 }

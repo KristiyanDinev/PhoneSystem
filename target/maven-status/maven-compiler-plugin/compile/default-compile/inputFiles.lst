@@ -1,7 +1,9 @@
 D:\Projects\PhoneSystem\src\main\java\me\kristiyandinev\PhoneSystem\controllers\PhoneController.java
 D:\Projects\PhoneSystem\src\main\java\me\kristiyandinev\PhoneSystem\controllers\UserController.java
-D:\Projects\PhoneSystem\src\main\java\me\kristiyandinev\PhoneSystem\domain\Phone.java
-D:\Projects\PhoneSystem\src\main\java\me\kristiyandinev\PhoneSystem\domain\User.java
+D:\Projects\PhoneSystem\src\main\java\me\kristiyandinev\PhoneSystem\entities\PhoneEntity.java
+D:\Projects\PhoneSystem\src\main\java\me\kristiyandinev\PhoneSystem\entities\UserEntity.java
+D:\Projects\PhoneSystem\src\main\java\me\kristiyandinev\PhoneSystem\models\LoginUserModel.java
+D:\Projects\PhoneSystem\src\main\java\me\kristiyandinev\PhoneSystem\models\RegisterUserModel.java
 D:\Projects\PhoneSystem\src\main\java\me\kristiyandinev\PhoneSystem\PhoneSystemApplication.java
 D:\Projects\PhoneSystem\src\main\java\me\kristiyandinev\PhoneSystem\repos\PhoneRepo.java
 D:\Projects\PhoneSystem\src\main\java\me\kristiyandinev\PhoneSystem\repos\UserRepo.java

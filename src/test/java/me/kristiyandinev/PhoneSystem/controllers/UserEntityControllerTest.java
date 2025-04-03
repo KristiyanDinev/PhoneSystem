@@ -1,35 +1,35 @@
 package me.kristiyandinev.PhoneSystem.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import me.kristiyandinev.PhoneSystem.domain.User;
+import me.kristiyandinev.PhoneSystem.models.LoginUserModel;
+import me.kristiyandinev.PhoneSystem.models.RegisterUserModel;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpRequest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+
+import java.net.URL;
+import java.net.http.HttpClient;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserControllerTest {
+public class UserEntityControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     private String indexUrl;
     private ObjectMapper objectMapper;
-    private User user;
 
-    public UserControllerTest() {
+    public UserEntityControllerTest() {
         objectMapper = new ObjectMapper();
         indexUrl = "http://127.0.0.1:8080/";
-        user = new User(null,
-                "John",
-                "s@example.com",
-                "123", null);
     }
 
 
@@ -40,21 +40,7 @@ public class UserControllerTest {
         ).andDo(
                 MockMvcResultHandlers.log()
         ).andExpect(
-                status().isOk()
-        );
-    }
-
-    @Test
-    public void registerPost() throws Exception {
-        mockMvc.perform(
-                post(indexUrl+"register")
-                .content(
-                        objectMapper.writeValueAsString(
-                                 user))
-        ).andDo(
-                MockMvcResultHandlers.log()
-        ).andExpect(
-                status().isOk()
+                status().isFound()
         );
     }
 
@@ -62,9 +48,6 @@ public class UserControllerTest {
     public void registerGet() throws Exception {
         mockMvc.perform(
                 get(indexUrl+"register")
-                        .content(
-                                objectMapper.writeValueAsString(
-                                        user))
         ).andDo(
                 MockMvcResultHandlers.log()
         ).andExpect(
@@ -73,12 +56,22 @@ public class UserControllerTest {
     }
 
     @Test
-    public void loginPost() throws Exception {
+    public void userPost() throws Exception {
+        LoginUserModel loginUserModel = new LoginUserModel("john@example.com", "123");
+        RegisterUserModel registerUserModel = new RegisterUserModel(
+                "John", "john@example.com", "123");
+        
+        mockMvc.perform(
+                post(indexUrl+"register")
+                        .content(objectMapper.writeValueAsString(registerUserModel))
+        ).andDo(
+                MockMvcResultHandlers.log()
+        ).andExpect(
+                status().isOk()
+        );
         mockMvc.perform(
                 post(indexUrl+"login")
-                        .content(
-                                objectMapper.writeValueAsString(
-                                        user))
+                .content(objectMapper.writeValueAsString(loginUserModel))
         ).andDo(
                 MockMvcResultHandlers.log()
         ).andExpect(
@@ -90,9 +83,6 @@ public class UserControllerTest {
     public void loginGet() throws Exception {
         mockMvc.perform(
                 get(indexUrl+"login")
-                        .content(
-                                objectMapper.writeValueAsString(
-                                        user))
         ).andDo(
                 MockMvcResultHandlers.log()
         ).andExpect(
