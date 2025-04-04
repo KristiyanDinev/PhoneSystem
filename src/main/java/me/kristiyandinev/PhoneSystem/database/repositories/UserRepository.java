@@ -1,36 +1,33 @@
-package me.kristiyandinev.PhoneSystem.repos;
+package me.kristiyandinev.PhoneSystem.database.repositories;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import jakarta.transaction.Transactional;
-import me.kristiyandinev.PhoneSystem.entities.UserEntity;
+import me.kristiyandinev.PhoneSystem.database.entities.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
 @Repository
 @Transactional
-public class UserRepo implements JpaRepository<UserEntity, Integer> {
+public class UserRepository implements JpaRepository<UserEntity, Integer> {
 
     private EntityManager entityManager;
 
     private SimpleJpaRepository<UserEntity, Integer> simpleJpaRepository;
 
     @Autowired
-    public UserRepo(EntityManager entityManager) {
+    public UserRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
         simpleJpaRepository = new SimpleJpaRepository<>(UserEntity.class, entityManager);
     }

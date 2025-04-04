@@ -1,5 +1,14 @@
 package me.kristiyandinev.PhoneSystem.models;
 
+
+import lombok.*;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Getter
+@Setter
+@Builder
 public class RegisterUserModel {
 
     public String name;
@@ -8,15 +17,8 @@ public class RegisterUserModel {
 
     public String password;
 
-    public RegisterUserModel() {
-        name = "";
-        email = "";
-        password = "";
-    }
-
-    public RegisterUserModel(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
+    @Override
+    public String toString() {
+        return "RegisterUserModel(name="+name+", email="+email+", password="+password+")";
     }
 }

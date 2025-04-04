@@ -1,4 +1,4 @@
-package me.kristiyandinev.PhoneSystem.entities;
+package me.kristiyandinev.PhoneSystem.database.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

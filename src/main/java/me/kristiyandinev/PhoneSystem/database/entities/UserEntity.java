@@ -1,4 +1,4 @@
-package me.kristiyandinev.PhoneSystem.entities;
+package me.kristiyandinev.PhoneSystem.database.entities;
 
 import jakarta.persistence.*;
 import me.kristiyandinev.PhoneSystem.models.LoginUserModel;
@@ -17,7 +17,7 @@ public class UserEntity {
     @Column(nullable = false)
     public String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     public String email;
 
     @Column(nullable = false)

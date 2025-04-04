@@ -1,7 +1,9 @@
+me\kristiyandinev\PhoneSystem\models\LoginUserModel$LoginUserModelBuilder.class
 me\kristiyandinev\PhoneSystem\PhoneSystemApplication.class
 me\kristiyandinev\PhoneSystem\services\impl\UserServiceImpl.class
 me\kristiyandinev\PhoneSystem\utils\EncryptionUtil.class
 me\kristiyandinev\PhoneSystem\entities\PhoneEntity.class
+me\kristiyandinev\PhoneSystem\models\RegisterUserModel$RegisterUserModelBuilder.class
 me\kristiyandinev\PhoneSystem\controllers\UserController.class
 me\kristiyandinev\PhoneSystem\entities\UserEntity.class
 me\kristiyandinev\PhoneSystem\repos\PhoneRepo.class

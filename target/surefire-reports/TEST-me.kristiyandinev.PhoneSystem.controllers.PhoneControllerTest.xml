@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="me.kristiyandinev.PhoneSystem.PhoneEntitySystemApplicationTests" time="1.145" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="me.kristiyandinev.PhoneSystem.controllers.PhoneControllerTest" time="9.0" tests="1" errors="0" skipped="0" failures="1">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -49,7 +49,7 @@
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
     <property name="java.io.tmpdir" value="C:\Users\krisk\AppData\Local\Temp\"/>
     <property name="idea.version" value="2024.3.5"/>
-    <property name="com.zaxxer.hikari.pool_number" value="2"/>
+    <property name="com.zaxxer.hikari.pool_number" value="1"/>
     <property name="java.version" value="21.0.6"/>
     <property name="user.dir" value="D:\Projects\PhoneSystem"/>
     <property name="os.arch" value="amd64"/>
@@ -67,9 +67,19 @@
     <property name="java.class.version" value="65.0"/>
     <property name="LOGGED_APPLICATION_NAME" value="[PhoneSystem] "/>
   </properties>
-  <testcase name="contextLoads" classname="me.kristiyandinev.PhoneSystem.PhoneEntitySystemApplicationTests" time="0.01">
-    <system-out><![CDATA[2025-04-04T15:58:36.169+03:00  INFO 12704 --- [PhoneSystem] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [me.kristiyandinev.PhoneSystem.PhoneEntitySystemApplicationTests]: PhoneEntitySystemApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2025-04-04T15:58:36.181+03:00  INFO 12704 --- [PhoneSystem] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration me.kristiyandinev.PhoneSystem.PhoneSystemApplication for test class me.kristiyandinev.PhoneSystem.PhoneEntitySystemApplicationTests
+  <testcase name="phoneGet" classname="me.kristiyandinev.PhoneSystem.controllers.PhoneControllerTest" time="1.007">
+    <failure message="Status expected:&lt;200&gt; but was:&lt;302&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: Status expected:<200> but was:<302>
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:61)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:128)
+	at org.springframework.test.web.servlet.result.StatusResultMatchers.lambda$matcher$9(StatusResultMatchers.java:640)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:214)
+	at me.kristiyandinev.PhoneSystem.controllers.PhoneControllerTest.phoneGet(PhoneControllerTest.java:73)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+]]></failure>
+    <system-out><![CDATA[15:58:26.972 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [me.kristiyandinev.PhoneSystem.controllers.PhoneControllerTest]: PhoneControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:58:27.217 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration me.kristiyandinev.PhoneSystem.PhoneSystemApplication for test class me.kristiyandinev.PhoneSystem.controllers.PhoneControllerTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -80,28 +90,150 @@
 
  :: Spring Boot ::                (v3.4.4)
 
-2025-04-04T15:58:36.252+03:00  INFO 12704 --- [PhoneSystem] [           main] m.k.P.PhoneEntitySystemApplicationTests  : Starting PhoneEntitySystemApplicationTests using Java 21.0.6 with PID 12704 (started by krisk in D:\Projects\PhoneSystem)
-2025-04-04T15:58:36.252+03:00  INFO 12704 --- [PhoneSystem] [           main] m.k.P.PhoneEntitySystemApplicationTests  : No active profile set, falling back to 1 default profile: "default"
-2025-04-04T15:58:36.534+03:00  INFO 12704 --- [PhoneSystem] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-04-04T15:58:36.549+03:00  INFO 12704 --- [PhoneSystem] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 JPA repository interfaces.
-2025-04-04T15:58:36.681+03:00  INFO 12704 --- [PhoneSystem] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-04-04T15:58:36.684+03:00  INFO 12704 --- [PhoneSystem] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-04-04T15:58:36.696+03:00  INFO 12704 --- [PhoneSystem] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-04-04T15:58:36.697+03:00  INFO 12704 --- [PhoneSystem] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2025-04-04T15:58:36.772+03:00  INFO 12704 --- [PhoneSystem] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@6b5fdbd0
-2025-04-04T15:58:36.772+03:00  INFO 12704 --- [PhoneSystem] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2025-04-04T15:58:36.786+03:00  INFO 12704 --- [PhoneSystem] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+2025-04-04T15:58:28.122+03:00  INFO 12704 --- [PhoneSystem] [           main] m.k.P.controllers.PhoneControllerTest    : Starting PhoneControllerTest using Java 21.0.6 with PID 12704 (started by krisk in D:\Projects\PhoneSystem)
+2025-04-04T15:58:28.125+03:00  INFO 12704 --- [PhoneSystem] [           main] m.k.P.controllers.PhoneControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2025-04-04T15:58:29.170+03:00  INFO 12704 --- [PhoneSystem] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-04-04T15:58:29.217+03:00  INFO 12704 --- [PhoneSystem] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29 ms. Found 0 JPA repository interfaces.
+2025-04-04T15:58:29.976+03:00  INFO 12704 --- [PhoneSystem] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-04-04T15:58:30.175+03:00  INFO 12704 --- [PhoneSystem] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-04-04T15:58:30.285+03:00  INFO 12704 --- [PhoneSystem] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-04-04T15:58:30.879+03:00  INFO 12704 --- [PhoneSystem] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-04-04T15:58:30.951+03:00  INFO 12704 --- [PhoneSystem] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-04-04T15:58:31.319+03:00  INFO 12704 --- [PhoneSystem] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@ee2ae9a
+2025-04-04T15:58:31.322+03:00  INFO 12704 --- [PhoneSystem] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-04-04T15:58:31.463+03:00  INFO 12704 --- [PhoneSystem] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 17.3
 	Autocommit mode: undefined/unknown
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-04-04T15:58:36.872+03:00  INFO 12704 --- [PhoneSystem] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-04-04T15:58:37.029+03:00  INFO 12704 --- [PhoneSystem] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-04-04T15:58:37.055+03:00  WARN 12704 --- [PhoneSystem] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-04-04T15:58:37.297+03:00  INFO 12704 --- [PhoneSystem] [           main] m.k.P.PhoneEntitySystemApplicationTests  : Started PhoneEntitySystemApplicationTests in 1.111 seconds (process running for 11.516)
+2025-04-04T15:58:33.320+03:00  INFO 12704 --- [PhoneSystem] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-04T15:58:33.518+03:00  INFO 12704 --- [PhoneSystem] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-04-04T15:58:33.858+03:00  WARN 12704 --- [PhoneSystem] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-04-04T15:58:34.640+03:00  INFO 12704 --- [PhoneSystem] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-04-04T15:58:34.641+03:00  INFO 12704 --- [PhoneSystem] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-04-04T15:58:34.643+03:00  INFO 12704 --- [PhoneSystem] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2025-04-04T15:58:34.694+03:00  INFO 12704 --- [PhoneSystem] [           main] m.k.P.controllers.PhoneControllerTest    : Started PhoneControllerTest in 7.14 seconds (process running for 8.913)
+Hibernate: insert into users (created_at,email,name,password) values (?,?,?,?)
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /phone
+       Parameters = {}
+          Headers = []
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = me.kristiyandinev.PhoneSystem.controllers.PhoneController
+           Method = me.kristiyandinev.PhoneSystem.controllers.PhoneController#phoneHTML(HttpSession)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = redirect:login
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 302
+    Error message = null
+          Headers = [Content-Language:"en", Location:"login"]
+     Content type = null
+             Body = 
+    Forwarded URL = null
+   Redirected URL = login
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /register
+       Parameters = {name=[John], email=[john@example.com], password=[123]}
+          Headers = [Content-Type:"application/x-www-form-urlencoded;charset=UTF-8"]
+             Body = null
+    Session Attrs = {user_id=43}
+
+Handler:
+             Type = me.kristiyandinev.PhoneSystem.controllers.UserController
+           Method = me.kristiyandinev.PhoneSystem.controllers.UserController#register(HttpSession, RegisterUserModel)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = redirect:/
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 302
+    Error message = null
+          Headers = [Content-Language:"en", Location:"/"]
+     Content type = null
+             Body = 
+    Forwarded URL = null
+   Redirected URL = /
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /phone
+       Parameters = {}
+          Headers = [Cookie:"JSESSIONID=2"]
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = me.kristiyandinev.PhoneSystem.controllers.PhoneController
+           Method = me.kristiyandinev.PhoneSystem.controllers.PhoneController#phoneHTML(HttpSession)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = redirect:login
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 302
+    Error message = null
+          Headers = [Content-Language:"en", Location:"login"]
+     Content type = null
+             Body = 
+    Forwarded URL = null
+   Redirected URL = login
+          Cookies = []
 ]]></system-out>
+    <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build what is described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\krisk\.m2\repository\net\bytebuddy\byte-buddy-agent\1.15.11\byte-buddy-agent-1.15.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
   </testcase>
 </testsuite>

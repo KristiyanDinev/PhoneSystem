@@ -26,7 +26,7 @@ encryption:
   salt: "wesafasdf"
 
 templates:
-  addphone: "addPhone"
+  addphone: "addphone"
   login: "login"
   index: "index"
   register: "register"

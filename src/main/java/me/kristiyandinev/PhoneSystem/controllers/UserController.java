@@ -1,8 +1,8 @@
 package me.kristiyandinev.PhoneSystem.controllers;
 
 import jakarta.servlet.http.HttpSession;
-import me.kristiyandinev.PhoneSystem.entities.PhoneEntity;
-import me.kristiyandinev.PhoneSystem.entities.UserEntity;
+import me.kristiyandinev.PhoneSystem.database.entities.PhoneEntity;
+import me.kristiyandinev.PhoneSystem.database.entities.UserEntity;
 import me.kristiyandinev.PhoneSystem.models.LoginUserModel;
 import me.kristiyandinev.PhoneSystem.models.RegisterUserModel;
 import me.kristiyandinev.PhoneSystem.services.impl.UserServiceImpl;
@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -70,15 +71,14 @@ public class UserController {
         modelAndView.setViewName(indexTemplate);
         return modelAndView;
     }
-// HttpMediaTypeNotSupportedException
-    @PostMapping(value = "/login",
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ModelAndView login(HttpSession session, @RequestBody LoginUserModel loginUserModel) {
-        Optional<UserEntity> optionalUser = userService.login(loginUserModel);
 
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ModelAndView login(HttpSession session, @ModelAttribute LoginUserModel loginUserModel) {
+        Optional<UserEntity> optionalUser = userService.login(loginUserModel);
         ModelAndView modelAndView = new ModelAndView();
         if (optionalUser.isEmpty()) {
             modelAndView.setViewName(loginTemplate);
+            modelAndView.setStatus(HttpStatusCode.valueOf(401));
             return modelAndView;
         }
 
@@ -90,10 +90,9 @@ public class UserController {
     }
 
     @PostMapping(value = "/register",
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ModelAndView register(HttpSession session, @RequestBody RegisterUserModel registerUserModel) {
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ModelAndView register(HttpSession session, @ModelAttribute RegisterUserModel registerUserModel) {
         Optional<UserEntity> optionalUser = userService.register(registerUserModel);
-
         ModelAndView modelAndView = new ModelAndView();
         if (optionalUser.isEmpty()) {
             modelAndView.setViewName(redirect+loginTemplate);

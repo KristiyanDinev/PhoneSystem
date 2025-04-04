@@ -1,8 +1,8 @@
 package me.kristiyandinev.PhoneSystem.services;
 
 import jakarta.servlet.http.HttpSession;
-import me.kristiyandinev.PhoneSystem.entities.PhoneEntity;
-import me.kristiyandinev.PhoneSystem.entities.UserEntity;
+import me.kristiyandinev.PhoneSystem.database.entities.PhoneEntity;
+import me.kristiyandinev.PhoneSystem.database.entities.UserEntity;
 import me.kristiyandinev.PhoneSystem.models.LoginUserModel;
 import me.kristiyandinev.PhoneSystem.models.RegisterUserModel;
 import org.springframework.data.domain.Page;

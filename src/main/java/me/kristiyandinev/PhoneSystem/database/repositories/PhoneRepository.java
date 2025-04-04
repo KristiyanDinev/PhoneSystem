@@ -1,10 +1,10 @@
-package me.kristiyandinev.PhoneSystem.repos;
+package me.kristiyandinev.PhoneSystem.database.repositories;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.transaction.Transactional;
-import me.kristiyandinev.PhoneSystem.entities.PhoneEntity;
+import me.kristiyandinev.PhoneSystem.database.entities.PhoneEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -21,14 +21,14 @@ import java.util.function.Function;
 
 @Repository
 @Transactional
-public class PhoneRepo implements JpaRepository<PhoneEntity, Long> {
+public class PhoneRepository implements JpaRepository<PhoneEntity, Long> {
 
         private EntityManager entityManager;
 
         private SimpleJpaRepository<PhoneEntity, Long> simpleJpaRepository;
 
         @Autowired
-        public PhoneRepo(EntityManager entityManager) {
+        public PhoneRepository(EntityManager entityManager) {
             this.entityManager = entityManager;
             simpleJpaRepository = new SimpleJpaRepository<>(PhoneEntity.class, entityManager);
         }

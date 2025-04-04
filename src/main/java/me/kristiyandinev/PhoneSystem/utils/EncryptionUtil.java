@@ -37,7 +37,7 @@ public class EncryptionUtil {
         try {
             _secretKey = new SecretKeySpec(hash256(_key + _salt), _algoName);
 
-        } catch (Exception _) {
+        } catch (Exception a) {
             _secretKey = null;
         }
     }

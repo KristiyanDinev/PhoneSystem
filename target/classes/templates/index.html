@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Home</title>
+
+    <script src="/js/index.js"></script>
 </head>
 <body>
 
@@ -25,7 +27,10 @@
         <p>Phones: <p th:text="${#lists.size(phones)}"></p>
 
         <ol th:each="phone:${phones}">
-            <li th:text="${phone.number}"></li>
+            <div>
+                <li th:text="${phone.number}"></li>
+                <button th:onclick="|delete_phone('${phone.number}')|">Delete</button>
+            </div>
         </ol>
     </div>
 </div>

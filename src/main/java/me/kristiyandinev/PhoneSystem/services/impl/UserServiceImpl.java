@@ -1,44 +1,37 @@
 package me.kristiyandinev.PhoneSystem.services.impl;
 
 import jakarta.annotation.Nullable;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
 import jakarta.servlet.http.HttpSession;
-import me.kristiyandinev.PhoneSystem.entities.PhoneEntity;
-import me.kristiyandinev.PhoneSystem.entities.UserEntity;
+import me.kristiyandinev.PhoneSystem.database.entities.PhoneEntity;
+import me.kristiyandinev.PhoneSystem.database.entities.UserEntity;
 import me.kristiyandinev.PhoneSystem.models.LoginUserModel;
 import me.kristiyandinev.PhoneSystem.models.RegisterUserModel;
-import me.kristiyandinev.PhoneSystem.repos.PhoneRepo;
-import me.kristiyandinev.PhoneSystem.repos.UserRepo;
+import me.kristiyandinev.PhoneSystem.database.repositories.PhoneRepository;
+import me.kristiyandinev.PhoneSystem.database.repositories.UserRepository;
 import me.kristiyandinev.PhoneSystem.services.IUserService;
 import me.kristiyandinev.PhoneSystem.utils.EncryptionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.*;
 
 
 @Service
 public class UserServiceImpl implements IUserService {
 
     @Autowired
-    private UserRepo userRepo;
+    private UserRepository userRepository;
 
     @Autowired
-    private PhoneRepo phoneRepo;
+    private PhoneRepository phoneRepository;
 
     @Autowired
     private EncryptionUtil encryptionUtil;
 
+    private String session_id = "session_id";
     private String session_user_id = "user_id";
 
 
@@ -47,7 +40,7 @@ public class UserServiceImpl implements IUserService {
             userEntity.password = encryptionUtil.hash256String(userEntity.password);
             return Optional.of(userEntity);
 
-        } catch (Exception _) {
+        } catch (Exception a) {
             return Optional.empty();
         }
     }
@@ -57,7 +50,7 @@ public class UserServiceImpl implements IUserService {
     public Integer getUserIdFromSession(HttpSession session) {
         try {
             return Integer.parseInt(String.valueOf(session.getAttribute(session_user_id)));
-        } catch (Exception _) {
+        } catch (Exception a) {
             return null;
         }
     }
@@ -73,14 +66,14 @@ public class UserServiceImpl implements IUserService {
         if (id == null) {
             return Optional.empty();
         }
-        return userRepo.findById(id);
+        return userRepository.findById(id);
     }
 
     @Override
     public Page<PhoneEntity> findPhonesByUser(UserEntity userEntity, Pageable pageable) {
         PhoneEntity phoneEntity = new PhoneEntity();
         phoneEntity.userEntity = userEntity;
-        return phoneRepo.findAll(Example.of(phoneEntity), pageable);
+        return phoneRepository.findAll(Example.of(phoneEntity), pageable);
     }
 
     @Override
@@ -89,13 +82,13 @@ public class UserServiceImpl implements IUserService {
         if (optionalUser.isEmpty()) {
             return optionalUser;
         }
-        return userRepo.login(optionalUser.get());
+        return userRepository.login(optionalUser.get());
     }
 
     @Override
     public Optional<UserEntity> register(RegisterUserModel registerUserModel) {
         return hashUserPassword(
                 new UserEntity(registerUserModel))
-                .map(value -> userRepo.save(value));
+                .map(value -> userRepository.save(value));
     }
 }

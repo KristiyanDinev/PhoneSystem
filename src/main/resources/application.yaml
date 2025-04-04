@@ -5,6 +5,7 @@ spring:
 
   jpa:
     show-sql: true
+    open-in-view: true
     hibernate:
       ddl-auto: update
 
@@ -14,12 +15,19 @@ spring:
     password: 'postgres'
     driver-class-name: 'org.postgresql.Driver'
     tomcat:
+      initial-size: 1
       max-wait: 10000
       max-active: 50
       test-on-borrow: true
 
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+
+logging:
+  level:
+    org:
+      springframework:
+        security: "TRACE"
+        web: "DEBUG"
+        hibernate: "ERROR"
 
 encryption:
   key: "weasf"

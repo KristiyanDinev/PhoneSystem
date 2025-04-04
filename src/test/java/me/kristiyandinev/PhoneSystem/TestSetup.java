@@ -1,8 +1,8 @@
 package me.kristiyandinev.PhoneSystem;
 
 import jakarta.transaction.Transactional;
-import me.kristiyandinev.PhoneSystem.repos.PhoneRepo;
-import me.kristiyandinev.PhoneSystem.repos.UserRepo;
+import me.kristiyandinev.PhoneSystem.database.repositories.PhoneRepository;
+import me.kristiyandinev.PhoneSystem.database.repositories.UserRepository;
 import me.kristiyandinev.PhoneSystem.utils.EncryptionUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,10 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 public abstract class TestSetup {
 
     @Autowired
-    public PhoneRepo phoneRepo;
+    public PhoneRepository phoneRepository;
 
     @Autowired
-    public UserRepo userRepo;
+    public UserRepository userRepository;
 
     @Autowired
     public EncryptionUtil encryptionUtil;
@@ -28,7 +28,7 @@ public abstract class TestSetup {
 
     @AfterEach
     public void tearDown() {
-        phoneRepo.deleteAll();
-        userRepo.deleteAll();
+        phoneRepository.deleteAll();
+        userRepository.deleteAll();
     }
 }
