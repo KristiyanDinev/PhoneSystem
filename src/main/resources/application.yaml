@@ -1,7 +1,13 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
+
   port: 8080
   application:
     name: 'PhoneSystem'
+
+  session:
+    store-type: 'jdbc'
 
   jpa:
     show-sql: true
@@ -14,11 +20,21 @@ spring:
     username: 'postgres'
     password: 'postgres'
     driver-class-name: 'org.postgresql.Driver'
+    type: "org.apache.tomcat.jdbc.pool.DataSource"
+
     tomcat:
-      initial-size: 1
-      max-wait: 10000
-      max-active: 50
-      test-on-borrow: true
+      max-total: 50
+      pool-prepared-statements: true
+      max-wait: 5000
+      max-active: 30
+      max-idle: 10
+      remove-abandoned-timeout: 60
+      remove-abandoned-on-maintenance: true
+      remove-abandoned-on-borrow: true
+
+      # debug
+      #log-abandoned: true
+      #abandoned-usage-tracking: true
 
 
 logging:

@@ -18,9 +18,6 @@ spring:
       max-active: 50
       test-on-borrow: true
 
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
-
 encryption:
   key: "weasf"
   salt: "wesafasdf"

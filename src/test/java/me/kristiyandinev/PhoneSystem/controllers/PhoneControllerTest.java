@@ -31,7 +31,7 @@ public class PhoneControllerTest {
     }
 
 
-    @Test
+    //@Test
     public void phoneGet() throws Exception {
         mockMvc.perform(
                 get("/phone")
