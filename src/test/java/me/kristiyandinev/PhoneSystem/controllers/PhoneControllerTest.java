@@ -1,5 +1,7 @@
 package me.kristiyandinev.PhoneSystem.controllers;
 
+import jakarta.servlet.http.Cookie;
+import me.kristiyandinev.PhoneSystem.TestSetup;
 import me.kristiyandinev.PhoneSystem.models.RegisterUserModel;
 import me.kristiyandinev.PhoneSystem.database.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -8,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -16,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PhoneControllerTest {
+public class PhoneControllerTest extends TestSetup {
 
     @Autowired
     private MockMvc mockMvc;
@@ -31,18 +34,20 @@ public class PhoneControllerTest {
     }
 
 
-    //@Test
+    @Test
     public void phoneGet() throws Exception {
-        mockMvc.perform(
+        MvcResult mvcResult = mockMvc.perform(
                 get("/phone")
         ).andDo(
                 MockMvcResultHandlers.log()
         ).andExpect(
                 status().isFound()
-        );
+        ).andReturn();
+
+        Cookie sessionCookie = mvcResult.getResponse().getCookie("SESSION");
 
         RegisterUserModel registerUserModel = new RegisterUserModel("John",
-                "john@example.com", "123");
+                "john2@example.com", "123");
 
         mockMvc.perform(
                         post("/register")
@@ -50,6 +55,8 @@ public class PhoneControllerTest {
                                 .param("name", registerUserModel.name)
                                 .param("email", registerUserModel.email)
                                 .param("password", registerUserModel.password)
+                                .cookie(sessionCookie)
+                                .accept(MediaType.ALL)
                                 )
 
                 .andDo(MockMvcResultHandlers.log())
@@ -57,20 +64,20 @@ public class PhoneControllerTest {
 
         mockMvc.perform(
                 get("/phone")
+                .accept(MediaType.ALL)
+                .cookie(sessionCookie)
         ).andDo(
                 MockMvcResultHandlers.log()
         ).andExpect(
                 status().isOk()
         );
-
-        userRepository.deleteAll();
     }
 
 
-    //@Test
+    @Test
     public void phonePost() throws Exception {
         RegisterUserModel registerUserModel = new RegisterUserModel("John",
-                "john@example.com", "123");
+                "john3@example.com", "123");
 
         mockMvc.perform(
                         post("/register")
@@ -101,7 +108,5 @@ public class PhoneControllerTest {
         ).andExpect(
                 status().isFound()
         );
-
-        userRepository.deleteAll();
     }
 }

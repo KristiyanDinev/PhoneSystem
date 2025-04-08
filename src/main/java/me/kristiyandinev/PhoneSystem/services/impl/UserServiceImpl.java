@@ -1,6 +1,11 @@
 package me.kristiyandinev.PhoneSystem.services.impl;
 
 import jakarta.annotation.Nullable;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import jakarta.servlet.http.HttpSession;
 import me.kristiyandinev.PhoneSystem.database.entities.PhoneEntity;
 import me.kristiyandinev.PhoneSystem.database.entities.UserEntity;
@@ -16,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -29,9 +35,11 @@ public class UserServiceImpl implements IUserService {
     private PhoneRepository phoneRepository;
 
     @Autowired
+    private EntityManager entityManager;
+
+    @Autowired
     private EncryptionUtil encryptionUtil;
 
-    private String session_id = "session_id";
     private String session_user_id = "user_id";
 
 
@@ -76,13 +84,15 @@ public class UserServiceImpl implements IUserService {
         return phoneRepository.findAll(Example.of(phoneEntity), pageable);
     }
 
+
     @Override
-    public Optional<UserEntity> login(LoginUserModel userEntity) {
-        Optional<UserEntity> optionalUser = hashUserPassword(new UserEntity(userEntity));
-        if (optionalUser.isEmpty()) {
-            return optionalUser;
+    public Optional<UserEntity> login(LoginUserModel loginUserModel) {
+        Optional<UserEntity> optionalUserEntity = hashUserPassword(new UserEntity(loginUserModel));
+        if (optionalUserEntity.isEmpty()) {
+            return optionalUserEntity;
         }
-        return userRepository.login(optionalUser.get());
+
+        return loginQuery(optionalUserEntity.get());
     }
 
     @Override
@@ -90,5 +100,26 @@ public class UserServiceImpl implements IUserService {
         return hashUserPassword(
                 new UserEntity(registerUserModel))
                 .map(value -> userRepository.save(value));
+    }
+
+
+
+
+    private Optional<UserEntity> loginQuery(UserEntity userEntity) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<UserEntity> criteriaQuery = criteriaBuilder.createQuery(UserEntity.class);
+        Root<UserEntity> root = criteriaQuery.from(UserEntity.class);
+
+        criteriaQuery = criteriaQuery.where(
+                criteriaBuilder.and(
+                        criteriaBuilder.equal(root.get("email"), userEntity.email),
+                        criteriaBuilder.equal(root.get("password"), userEntity.password)
+                )
+        );
+
+        List<UserEntity> userEntities = entityManager
+                .createQuery(criteriaQuery).getResultList();
+        return userEntities.isEmpty() ? Optional.empty() : Optional.of(userEntities.getFirst());
     }
 }

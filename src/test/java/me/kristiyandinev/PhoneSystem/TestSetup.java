@@ -3,6 +3,8 @@ package me.kristiyandinev.PhoneSystem;
 import jakarta.transaction.Transactional;
 import me.kristiyandinev.PhoneSystem.database.repositories.PhoneRepository;
 import me.kristiyandinev.PhoneSystem.database.repositories.UserRepository;
+import me.kristiyandinev.PhoneSystem.database.repositories.spring_session.SpringSessionAttributesRepository;
+import me.kristiyandinev.PhoneSystem.database.repositories.spring_session.SpringSessionRepository;
 import me.kristiyandinev.PhoneSystem.utils.EncryptionUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +22,12 @@ public abstract class TestSetup {
     public UserRepository userRepository;
 
     @Autowired
+    public SpringSessionAttributesRepository springSessionAttributesRepository;
+
+    @Autowired
+    public SpringSessionRepository springSessionRepository;
+
+    @Autowired
     public EncryptionUtil encryptionUtil;
 
     @BeforeEach
@@ -28,7 +36,10 @@ public abstract class TestSetup {
 
     @AfterEach
     public void tearDown() {
-        phoneRepository.deleteAll();
-        userRepository.deleteAll();
+        phoneRepository.deleteAllInBatch();
+        userRepository.deleteAllInBatch();
+
+        springSessionAttributesRepository.deleteAllInBatch();
+        springSessionRepository.deleteAllInBatch();
     }
 }

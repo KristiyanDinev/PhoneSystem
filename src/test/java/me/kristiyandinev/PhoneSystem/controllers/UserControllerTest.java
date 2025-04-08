@@ -1,6 +1,7 @@
 package me.kristiyandinev.PhoneSystem.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import me.kristiyandinev.PhoneSystem.TestSetup;
 import me.kristiyandinev.PhoneSystem.models.LoginUserModel;
 import me.kristiyandinev.PhoneSystem.models.RegisterUserModel;
 import me.kristiyandinev.PhoneSystem.database.repositories.UserRepository;
@@ -17,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserControllerTest {
+public class UserControllerTest extends TestSetup {
 
     @Autowired
     private MockMvc mockMvc;
@@ -33,7 +34,7 @@ public class UserControllerTest {
     }
 
 
-    //@Test
+    @Test
     public void indexGet() throws Exception {
         mockMvc.perform(
                 get("/")
@@ -44,7 +45,7 @@ public class UserControllerTest {
         );
     }
 
-    //@Test
+    @Test
     public void registerGet() throws Exception {
         mockMvc.perform(
                 get("/register")
@@ -55,7 +56,7 @@ public class UserControllerTest {
         );
     }
 
-    //@Test
+    @Test
     public void loginGet() throws Exception {
         mockMvc.perform(
                 get("/login")
@@ -66,36 +67,16 @@ public class UserControllerTest {
         );
     }
 
-    //@Test
+    @Test
     public void userPost() throws Exception {
-        LoginUserModel loginUserModel = new LoginUserModel("john@example.com", "123");
+        LoginUserModel loginUserModel = new LoginUserModel("john1@example.com", "123");
 
         LoginUserModel invalidLoginUserModel = new LoginUserModel("1", "1");
         invalidLoginUserModel.setEmail("1");
         invalidLoginUserModel.setPassword("1");
 
         RegisterUserModel registerUserModel = new RegisterUserModel("John",
-                "john@example.com", "123");
-
-
-        /*
-        mockMvc.perform(
-                        post("/register")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(registerUserModel)))
-                .andDo(MockMvcResultHandlers.log())
-                .andExpect(status().isFound());
-
-                // for forms
-                @PostMapping(value = "/login", consumes = APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView login(HttpSession session, @ModelAttribute LoginUserModel loginUserModel) {}
-
-    // for json requests
-    @PostMapping("/login")
-    public ModelAndView login(HttpSession session, @RequestBody LoginUserModel loginUserModel) {}
-
-
-                */
+                "john1@example.com", "123");
 
         mockMvc.perform(
                         post("/register")
@@ -103,7 +84,7 @@ public class UserControllerTest {
                                 .param("name", registerUserModel.name)
                                 .param("email", registerUserModel.email)
                                 .param("password", registerUserModel.password))
-                .andDo(MockMvcResultHandlers.print())
+                .andDo(MockMvcResultHandlers.log())
                 .andExpect(status().isFound());
 
         mockMvc.perform(
@@ -112,7 +93,7 @@ public class UserControllerTest {
                                 .param("email", loginUserModel.email)
                                 .param("password", loginUserModel.password)
                 )
-                .andDo(MockMvcResultHandlers.print())
+                .andDo(MockMvcResultHandlers.log())
                 .andExpect(status().isFound());
 
         mockMvc.perform(
@@ -121,9 +102,7 @@ public class UserControllerTest {
                                 .param("email", invalidLoginUserModel.email)
                                 .param("password", invalidLoginUserModel.password)
                 )
-                .andDo(MockMvcResultHandlers.print())
+                .andDo(MockMvcResultHandlers.log())
                 .andExpect(status().isUnauthorized());
-
-        userRepository.deleteAll();
     }
 }
