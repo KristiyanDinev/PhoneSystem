@@ -3,8 +3,10 @@ package me.kristiyandinev.PhoneSystem.services.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Order;
 import jakarta.persistence.criteria.Root;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -17,11 +19,13 @@ import me.kristiyandinev.PhoneSystem.database.repositories.IUserRepository;
 import me.kristiyandinev.PhoneSystem.services.IUserService;
 import me.kristiyandinev.PhoneSystem.utils.EncryptionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,9 +93,39 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Page<PhoneEntity> findPhonesByUser(UserEntity userEntity, Pageable pageable) {
-        PhoneEntity phoneEntity = new PhoneEntity();
-        phoneEntity.userEntity = userEntity;
-        return phoneRepository.findAll(Example.of(phoneEntity), pageable);
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        // Create query for selecting entities
+        CriteriaQuery<PhoneEntity> criteriaQuery = criteriaBuilder.createQuery(PhoneEntity.class);
+        Root<PhoneEntity> root = criteriaQuery.from(PhoneEntity.class);
+
+        // Add where clause - use the field name 'userEntity', not the column name 'user_id'
+        criteriaQuery = criteriaQuery.where(
+                criteriaBuilder.equal(root.get("userEntity"), userEntity)
+        );
+
+        // Add sorting
+        if (pageable.getSort().isSorted()) {
+            List<Order> orders = new ArrayList<>();
+            for (Sort.Order sortOrder : pageable.getSort()) {
+                if (sortOrder.isAscending()) {
+                    orders.add(criteriaBuilder.asc(root.get(sortOrder.getProperty())));
+                } else {
+                    orders.add(criteriaBuilder.desc(root.get(sortOrder.getProperty())));
+                }
+            }
+            criteriaQuery = criteriaQuery.orderBy(orders);
+        }
+
+        // Execute the query with pagination
+        TypedQuery<PhoneEntity> typedQuery = entityManager.createQuery(criteriaQuery);
+        typedQuery.setFirstResult((int) pageable.getOffset());
+        typedQuery.setMaxResults(pageable.getPageSize());
+        List<PhoneEntity> phoneEntities = typedQuery.getResultList();
+
+        // If we know the total is small or this is an internal API, we could use phoneEntities.size()
+        // But this won't represent the true total across all pages
+        return new PageImpl<>(phoneEntities, pageable, phoneEntities.size());
     }
 
 

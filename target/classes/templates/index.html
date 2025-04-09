@@ -5,7 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Home</title>
 
-    <script src="/static/js/index.js"></script>
+    <script>
+        async function delete_phone(phone) {
+            //let formData = new FormData()
+            //formData.append("phone", phone)
+
+
+            const res = await fetch("http://127.0.0.1:8080/delphone", {
+                    method: "POST",
+                    headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body:  new URLSearchParams({
+                        'phone': phone,
+                    }),
+                    redirect: 'follow',
+                })
+
+            if (res.status === 200) {
+               window.location.reload()
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -27,9 +48,10 @@
         <p>Phones: <p th:text="${#lists.size(phones)}"></p>
 
         <ol th:each="phone:${phones}">
+            <li></li>
             <div>
-                <li th:text="${phone.number}"></li>
-                <button th:onclick="|delete_phone('${phone.number}')|">Delete</button>
+                <p th:text="${phone.number}"></p>
+                <button th:attr="onclick=|delete_phone('${phone.number}')|">Delete</button>
             </div>
         </ol>
     </div>
