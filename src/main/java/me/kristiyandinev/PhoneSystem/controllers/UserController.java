@@ -3,14 +3,14 @@ package me.kristiyandinev.PhoneSystem.controllers;
 import jakarta.servlet.http.HttpSession;
 import me.kristiyandinev.PhoneSystem.database.entities.PhoneEntity;
 import me.kristiyandinev.PhoneSystem.database.entities.UserEntity;
-import me.kristiyandinev.PhoneSystem.models.LoginUserModel;
-import me.kristiyandinev.PhoneSystem.models.RegisterUserModel;
+import me.kristiyandinev.PhoneSystem.dto.LoginUserDto;
+import me.kristiyandinev.PhoneSystem.dto.RegisterUserDto;
 import me.kristiyandinev.PhoneSystem.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatusCode;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,16 +46,15 @@ public class UserController {
 
     @GetMapping("/")
     public ModelAndView index(HttpSession session, Pageable pageable) {
-        //Pageable pageable = PageRequest.of(size, page, Sort.by(sort));
-
         ModelAndView modelAndView = new ModelAndView();
         if (pageable.getPageSize() > maxPageSize) {
             modelAndView.setViewName(redirect+loginTemplate);
             return modelAndView;
         }
 
-        Optional<UserEntity> optionalUser = userService.findById(
-                                userService.getUserIdFromSession(session));
+        UserEntity userEntityFromSession = userService.getUserEntityFromSession(session);
+        Optional<UserEntity> optionalUser = userService.findById(userEntityFromSession == null
+                ? null : userEntityFromSession.id);
 
         if (optionalUser.isEmpty()) {
             modelAndView.setViewName(redirect+loginTemplate);
@@ -73,36 +72,49 @@ public class UserController {
     }
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView login(HttpSession session, @ModelAttribute LoginUserModel loginUserModel) {
-        Optional<UserEntity> optionalUser = userService.login(loginUserModel);
+    public ModelAndView login(HttpSession session, @ModelAttribute LoginUserDto loginUserDto) {
+        Optional<UserEntity> optionalUser = userService.login(loginUserDto);
+
         ModelAndView modelAndView = new ModelAndView();
         if (optionalUser.isEmpty()) {
-            modelAndView.setViewName(loginTemplate);
-            modelAndView.setStatus(HttpStatusCode.valueOf(401));
+            modelAndView.setStatus(HttpStatus.UNAUTHORIZED);
             return modelAndView;
         }
 
-        UserEntity userEntityDb = optionalUser.get();
-        userService.setUserIdToSession(session, userEntityDb.id);
+        UserEntity userEntity = optionalUser.get();
 
-        modelAndView.setViewName(redirect+"/");
+        try {
+            userService.setUserEntityToSession(session, userEntity);
+            modelAndView.setViewName(redirect+"/");
+
+        } catch (Exception e) {
+            modelAndView.setStatus(HttpStatus.UNAUTHORIZED);
+            return modelAndView;
+        }
+
         return modelAndView;
     }
 
     @PostMapping(value = "/register",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView register(HttpSession session, @ModelAttribute RegisterUserModel registerUserModel) {
-        Optional<UserEntity> optionalUser = userService.register(registerUserModel);
+    public ModelAndView register(HttpSession session, @ModelAttribute RegisterUserDto registerUserDto) {
+        Optional<UserEntity> optionalUser = userService.register(registerUserDto);
         ModelAndView modelAndView = new ModelAndView();
         if (optionalUser.isEmpty()) {
             modelAndView.setViewName(redirect+loginTemplate);
             return modelAndView;
         }
 
-        UserEntity userEntityDb = optionalUser.get();
-        userService.setUserIdToSession(session, userEntityDb.id);
+        UserEntity userEntity = optionalUser.get();
 
-        modelAndView.setViewName(redirect+"/");
+        try {
+            userService.setUserEntityToSession(session, userEntity);
+            modelAndView.setViewName(redirect+"/");
+
+        } catch (Exception e) {
+            modelAndView.setViewName(redirect+loginTemplate);
+        }
+
         return modelAndView;
     }
 

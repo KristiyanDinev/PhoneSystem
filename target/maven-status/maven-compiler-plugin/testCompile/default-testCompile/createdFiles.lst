@@ -1,6 +1,6 @@
 me\kristiyandinev\PhoneSystem\controllers\UserControllerTest.class
 me\kristiyandinev\PhoneSystem\utils\EncryptionUtilTest.class
+me\kristiyandinev\PhoneSystem\ISetup.class
 me\kristiyandinev\PhoneSystem\controllers\PhoneControllerTest.class
 me\kristiyandinev\PhoneSystem\PhoneEntitySystemApplicationTests.class
-me\kristiyandinev\PhoneSystem\TestSetup.class
 me\kristiyandinev\PhoneSystem\repositories\RepositoryTest.class

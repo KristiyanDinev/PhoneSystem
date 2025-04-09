@@ -1,7 +1,6 @@
-package me.kristiyandinev.PhoneSystem.config.security;
+package me.kristiyandinev.PhoneSystem.config;
 
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration

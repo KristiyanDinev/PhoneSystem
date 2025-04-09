@@ -6,8 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class EncryptionUtilTest {
-
-
     private String testText = "Hello";
 
     @Autowired

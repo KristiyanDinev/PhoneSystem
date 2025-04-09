@@ -1,4 +1,4 @@
-package me.kristiyandinev.PhoneSystem.models;
+package me.kristiyandinev.PhoneSystem.dto;
 
 
 import lombok.*;
@@ -9,9 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class RegisterUserModel {
-
-    public String name;
+public class LoginUserDto {
 
     public String email;
 
@@ -19,6 +17,6 @@ public class RegisterUserModel {
 
     @Override
     public String toString() {
-        return "RegisterUserModel(name="+name+", email="+email+", password="+password+")";
+        return "LoginUserDto(email="+email+", password="+password+")";
     }
 }

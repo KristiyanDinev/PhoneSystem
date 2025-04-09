@@ -10,7 +10,7 @@ public class PhoneEntity {
     @Column(nullable = false)
     public String number;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     public UserEntity userEntity;
 
@@ -29,5 +29,11 @@ public class PhoneEntity {
         this.number = number;
         this.userEntity = userEntity;
         this.id = id;
+    }
+
+    public PhoneEntity(PhoneEntity phoneEntity) {
+        id = phoneEntity.id;
+        number = phoneEntity.number;
+        userEntity = phoneEntity.userEntity;
     }
 }

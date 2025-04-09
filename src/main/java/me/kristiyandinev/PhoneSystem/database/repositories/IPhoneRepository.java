@@ -1,11 +1,11 @@
 package me.kristiyandinev.PhoneSystem.database.repositories;
 
 import jakarta.transaction.Transactional;
-import me.kristiyandinev.PhoneSystem.database.entities.UserEntity;
+import me.kristiyandinev.PhoneSystem.database.entities.PhoneEntity;
 import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @Transactional
-public interface UserRepository extends JpaRepositoryImplementation<UserEntity, Integer> {
+public interface IPhoneRepository extends JpaRepositoryImplementation<PhoneEntity, Long> {
 }

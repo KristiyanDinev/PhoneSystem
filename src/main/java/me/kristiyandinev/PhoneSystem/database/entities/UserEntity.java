@@ -1,13 +1,17 @@
 package me.kristiyandinev.PhoneSystem.database.entities;
 
 import jakarta.persistence.*;
-import me.kristiyandinev.PhoneSystem.models.LoginUserModel;
-import me.kristiyandinev.PhoneSystem.models.RegisterUserModel;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import me.kristiyandinev.PhoneSystem.dto.LoginUserDto;
+import me.kristiyandinev.PhoneSystem.dto.RegisterUserDto;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserEntity {
 
     @Id
@@ -28,35 +32,27 @@ public class UserEntity {
     @Temporal(TemporalType.TIMESTAMP)
     public LocalDateTime created_at;
 
-    public UserEntity() {
+    public UserEntity(RegisterUserDto registerUserDto) {
+        id = null;
+        name = registerUserDto.name;
+        email = registerUserDto.email;
+        password = registerUserDto.password;
+        created_at = null;
+    }
+
+    public UserEntity(LoginUserDto loginUserDto) {
         id = null;
         name = "";
-        email = "";
-        password = "";
+        email = loginUserDto.email;
+        password = loginUserDto.password;
         created_at = null;
     }
 
-    public UserEntity(Integer id, String name, String email, String password, LocalDateTime datetime) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.created_at = datetime;
-    }
-
-    public UserEntity(RegisterUserModel registerUserModel) {
-        id = null;
-        name = registerUserModel.name;
-        email = registerUserModel.email;
-        password = registerUserModel.password;
-        created_at = null;
-    }
-
-    public UserEntity(LoginUserModel loginUserModel) {
-        id = null;
-        name = "";
-        email = loginUserModel.email;
-        password = loginUserModel.password;
-        created_at = null;
+    public UserEntity(UserEntity userEntity) {
+        id = userEntity.id;
+        name = userEntity.name;
+        email = userEntity.email;
+        password = userEntity.password;
+        created_at = userEntity.created_at;
     }
 }

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Transactional
-public interface SpringSessionRepository extends JpaRepository<SpringSessionEntity, String> {
+public interface ISpringSessionRepository extends JpaRepository<SpringSessionEntity, String> {
 }
