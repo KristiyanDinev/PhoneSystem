@@ -1,0 +1,12 @@
+me.kristiyandinev.PhoneSystem
+me.kristiyandinev.PhoneSystem.config
+me.kristiyandinev.PhoneSystem.controllers
+me.kristiyandinev.PhoneSystem.database.entities
+me.kristiyandinev.PhoneSystem.database.entities.spring_session
+me.kristiyandinev.PhoneSystem.database.repositories
+me.kristiyandinev.PhoneSystem.database.repositories.spring_session
+me.kristiyandinev.PhoneSystem.dto
+me.kristiyandinev.PhoneSystem.repositories
+me.kristiyandinev.PhoneSystem.services
+me.kristiyandinev.PhoneSystem.services.impl
+me.kristiyandinev.PhoneSystem.utils
