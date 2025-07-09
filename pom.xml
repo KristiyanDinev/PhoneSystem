@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>me.kristiyandinev</groupId>
 	<artifactId>PhoneSystem</artifactId>
-	<version>0.0.1</version>
+	<version>1.0.0</version>
 	<name>PhoneSystem</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -72,16 +72,12 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-<<<<<<< HEAD
-			<version>42.7.7</version>
-=======
->>>>>>> 8c722fb (Updated pom and config.)
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<groupId>gg.jte</groupId>
+			<artifactId>jte</artifactId>
+			<version>3.2.1</version>
 		</dependency>
 
 		<dependency>
